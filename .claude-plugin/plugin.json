@@ -1,0 +1,22 @@
+{
+  "name": "tenqual-discovery",
+  "displayName": "Tenqual Discovery",
+  "version": "0.1.0",
+  "description": "Search source-backed tender notices, manage qualified alerts, and retrieve documents matched to your Tenqual workspace.",
+  "author": {
+    "name": "Tenqual Software AS",
+    "email": "support@tenqual.com",
+    "url": "https://tenqual.com"
+  },
+  "homepage": "https://tenqual.com",
+  "repository": "https://github.com/Tenqual/tenqual-discovery-plugin",
+  "license": "MIT",
+  "keywords": [
+    "procurement",
+    "tenders",
+    "discovery",
+    "alerts",
+    "mcp"
+  ],
+  "mcpServers": "./.mcp.json"
+}

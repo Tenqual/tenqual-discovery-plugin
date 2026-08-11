@@ -1,0 +1,46 @@
+{
+  "name": "tenqual-discovery",
+  "version": "0.1.0",
+  "description": "Search tender notices, manage qualified alerts, and retrieve matched documents through Tenqual Discovery.",
+  "author": {
+    "name": "Tenqual Software AS",
+    "email": "support@tenqual.com",
+    "url": "https://tenqual.com"
+  },
+  "homepage": "https://tenqual.com",
+  "repository": "https://github.com/Tenqual/tenqual-discovery-plugin",
+  "license": "MIT",
+  "keywords": [
+    "procurement",
+    "tenders",
+    "discovery",
+    "alerts",
+    "mcp"
+  ],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Tenqual Discovery",
+    "shortDescription": "Find qualified tenders",
+    "longDescription": "Search source-backed public tender notices, review Low, Medium, and High qualification matches, manage tender alerts, and retrieve available documents for tenders matched to your Tenqual workspace.",
+    "developerName": "Tenqual Software AS",
+    "category": "Productivity",
+    "capabilities": [
+      "Search tender notices",
+      "Review qualified matches",
+      "Manage tender alerts",
+      "Retrieve matched documents",
+      "Configure integration delivery"
+    ],
+    "websiteURL": "https://tenqual.com",
+    "privacyPolicyURL": "https://tenqual.com/privacy",
+    "termsOfServiceURL": "https://tenqual.com/terms",
+    "defaultPrompt": [
+      "Find cloud infrastructure tenders in Norway.",
+      "Show my latest high-fit tender matches.",
+      "Draft a tender alert for managed cybersecurity services."
+    ],
+    "brandColor": "#0F6650",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png"
+  }
+}
