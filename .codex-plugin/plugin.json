@@ -1,13 +1,13 @@
 {
   "name": "tenqual-discovery",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Search tender notices, manage qualified alerts, and retrieve matched documents through Tenqual Discovery.",
   "author": {
     "name": "Tenqual Software AS",
     "email": "support@tenqual.com",
     "url": "https://tenqual.com"
   },
-  "homepage": "https://tenqual.com",
+  "homepage": "https://github.com/Tenqual/tenqual-discovery-plugin#readme",
   "repository": "https://github.com/Tenqual/tenqual-discovery-plugin",
   "license": "MIT",
   "keywords": [
@@ -34,6 +34,7 @@
     "websiteURL": "https://tenqual.com",
     "privacyPolicyURL": "https://tenqual.com/privacy",
     "termsOfServiceURL": "https://tenqual.com/terms",
+    "supportURL": "https://tenqual.com/contact",
     "defaultPrompt": [
       "Find cloud infrastructure tenders in Norway.",
       "Show my latest high-fit tender matches.",
