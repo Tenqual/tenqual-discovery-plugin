@@ -1,0 +1,85 @@
+name: Validate plugin package
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Validate OpenAI package contract and package boundaries
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          root = Path(".")
+          expected_files = {
+              ".claude-plugin/plugin.json",
+              ".codex-plugin/plugin.json",
+              ".github/workflows/validate.yml",
+              ".gitignore",
+              ".mcp.json",
+              "LICENSE",
+              "README.md",
+              "SECURITY.md",
+              "assets/icon.png",
+              "assets/logo.png",
+              "review/anthropic-submission.md",
+              "review/openai-submission.md",
+              "review/tool-annotations.md",
+          }
+          tracked = set(subprocess.check_output(["git", "ls-files"], text=True).splitlines())
+          assert tracked == expected_files, sorted(tracked ^ expected_files)
+          for relative in tracked:
+              path = root / relative
+              assert path.is_file() and not path.is_symlink(), relative
+
+          modes = subprocess.check_output(
+              ["git", "ls-files", "-s"], text=True
+          ).splitlines()
+          assert all(line.startswith("100644 ") for line in modes), modes
+
+          codex = json.loads((root / ".codex-plugin/plugin.json").read_text())
+          claude = json.loads((root / ".claude-plugin/plugin.json").read_text())
+          mcp = json.loads((root / ".mcp.json").read_text())
+          assert codex["name"] == claude["name"] == "tenqual-discovery"
+          assert codex["version"] == claude["version"]
+          assert codex["mcpServers"] == "./.mcp.json"
+          assert mcp == {
+              "tenqual": {"type": "http", "url": "https://api.tenqual.com/mcp"}
+          }
+          assert claude["mcpServers"] == {
+              "tenqual": {"type": "http", "url": "https://api.tenqual.com/mcp"}
+          }
+          interface = codex["interface"]
+          assert len(interface["displayName"]) <= 30
+          assert len(interface["shortDescription"]) <= 30
+          assert interface["websiteURL"] == "https://tenqual.com"
+          assert interface["privacyPolicyURL"] == "https://tenqual.com/privacy"
+          assert interface["termsOfServiceURL"] == "https://tenqual.com/terms"
+          assert interface["supportURL"] == "https://tenqual.com/contact"
+          assert len(interface["defaultPrompt"]) <= 3
+          assert all(len(prompt) <= 128 and "\n" not in prompt for prompt in interface["defaultPrompt"])
+          assert (root / "assets/icon.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+          assert (root / "assets/logo.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
+          PY
+      - name: Validate Anthropic plugin contract
+        run: npx --yes @anthropic-ai/claude-code@2.1.228 plugin validate . --strict
+      - name: Reject likely committed credentials
+        shell: bash
+        run: |
+          if git rev-list --all | xargs -r git grep -nEI '(tq_(live|mcp_at|mcp_rt)_[A-Za-z0-9_-]{16,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY|signing_secret["'"']?[[:space:]]*[:=][[:space:]]*["'"'][^"'"']+)' --; then
+            echo "Potential credential material found"
+            exit 1
+          fi
