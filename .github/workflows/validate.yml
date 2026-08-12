@@ -62,7 +62,7 @@ jobs:
           assert portable == {
               "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
               "name": "tenqual-discovery",
-              "version": "0.2.0",
+              "version": "0.3.0",
               "description": (
                   "Search source-backed tender notices, review qualified matches, manage alerts, "
                   "and retrieve matched documents through Tenqual Discovery."
