@@ -1,9 +1,21 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "tenqual",
-  "version": "1.0.0",
-  "description": "Tender discovery infrastructure. Monitor procurement sources worldwide, qualify notices as No Fit, Low, Medium, or High, and search or manage alerts conversationally through MCP.",
-  "author": "Tenqual AS",
-  "homepage": "https://tenqual.com",
-  "repository": "https://github.com/Tenqual/tenqual-discovery-plugin"
+  "name": "tenqual-discovery",
+  "version": "0.2.0",
+  "description": "Search source-backed tender notices, review qualified matches, manage alerts, and retrieve matched documents through Tenqual Discovery.",
+  "author": {
+    "name": "Tenqual Software AS",
+    "email": "support@tenqual.com",
+    "url": "https://tenqual.com"
+  },
+  "homepage": "https://github.com/Tenqual/tenqual-discovery-plugin#readme",
+  "repository": "https://github.com/Tenqual/tenqual-discovery-plugin",
+  "license": "MIT",
+  "keywords": [
+    "procurement",
+    "tenders",
+    "discovery",
+    "alerts",
+    "mcp"
+  ]
 }

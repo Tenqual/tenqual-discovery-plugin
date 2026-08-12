@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
-      - name: Validate OpenAI package contract and package boundaries
+      - name: Validate package contracts and package boundaries
         shell: bash
         run: |
           python3 - <<'PY'
@@ -38,6 +38,8 @@ jobs:
               "review/anthropic-submission.md",
               "review/openai-submission.md",
               "review/tool-annotations.md",
+              "mcp.json",
+              "plugin.json",
           }
           tracked = set(subprocess.check_output(["git", "ls-files"], text=True).splitlines())
           assert tracked == expected_files, sorted(tracked ^ expected_files)
@@ -53,8 +55,37 @@ jobs:
           codex = json.loads((root / ".codex-plugin/plugin.json").read_text())
           claude = json.loads((root / ".claude-plugin/plugin.json").read_text())
           mcp = json.loads((root / ".mcp.json").read_text())
-          assert codex["name"] == claude["name"] == "tenqual-discovery"
-          assert codex["version"] == claude["version"]
+          portable = json.loads((root / "plugin.json").read_text())
+          portable_mcp = json.loads((root / "mcp.json").read_text())
+          assert codex["name"] == claude["name"] == portable["name"] == "tenqual-discovery"
+          assert codex["version"] == claude["version"] == portable["version"]
+          assert portable == {
+              "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+              "name": "tenqual-discovery",
+              "version": "0.2.0",
+              "description": (
+                  "Search source-backed tender notices, review qualified matches, manage alerts, "
+                  "and retrieve matched documents through Tenqual Discovery."
+              ),
+              "author": {
+                  "name": "Tenqual Software AS",
+                  "email": "support@tenqual.com",
+                  "url": "https://tenqual.com",
+              },
+              "homepage": "https://github.com/Tenqual/tenqual-discovery-plugin#readme",
+              "repository": "https://github.com/Tenqual/tenqual-discovery-plugin",
+              "license": "MIT",
+              "keywords": ["procurement", "tenders", "discovery", "alerts", "mcp"],
+          }
+          assert portable_mcp == {
+              "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+              "mcpServers": {
+                  "tenqual": {
+                      "type": "streamable-http",
+                      "url": "https://api.tenqual.com/mcp",
+                  }
+              },
+          }
           assert codex["mcpServers"] == "./.mcp.json"
           assert mcp == {
               "tenqual": {"type": "http", "url": "https://api.tenqual.com/mcp"}
