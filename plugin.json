@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tenqual",
+  "version": "1.0.0",
+  "description": "Tender discovery infrastructure. Monitor procurement sources worldwide, qualify notices as No Fit, Low, Medium, or High, and search or manage alerts conversationally through MCP.",
+  "author": "Tenqual AS",
+  "homepage": "https://tenqual.com",
+  "repository": "https://github.com/Tenqual/tenqual-discovery-plugin"
+}
