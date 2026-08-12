@@ -1,8 +1,8 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "tenqual-discovery",
-  "displayName": "Tenqual Discovery",
   "version": "0.3.0",
-  "description": "Search source-backed tender notices, manage qualified alerts, and retrieve documents matched to your Tenqual workspace.",
+  "description": "Search source-backed tender notices, review qualified matches, manage alerts, and retrieve matched documents through Tenqual Discovery.",
   "author": {
     "name": "Tenqual Software AS",
     "email": "support@tenqual.com",
@@ -17,11 +17,5 @@
     "discovery",
     "alerts",
     "mcp"
-  ],
-  "mcpServers": {
-    "tenqual": {
-      "type": "http",
-      "url": "https://api.tenqual.com/mcp"
-    }
-  }
+  ]
 }

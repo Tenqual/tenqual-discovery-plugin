@@ -1,6 +1,6 @@
 {
   "name": "tenqual-discovery",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Search tender notices, manage qualified alerts, and retrieve matched documents through Tenqual Discovery.",
   "author": {
     "name": "Tenqual Software AS",

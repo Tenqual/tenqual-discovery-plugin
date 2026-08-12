@@ -1,6 +1,6 @@
 # Tenqual Discovery plugin and connector
 
-Tenqual Discovery connects Codex, ChatGPT, and Claude to Tenqual's production Model Context Protocol server. It lets a signed-in customer search source-backed tender notices, review qualified matches, manage tender alerts, inspect evaluation usage, and retrieve available documents for tenders matched to their workspace.
+Tenqual Discovery connects Codex, ChatGPT, Claude, Cursor, and VS Code to Tenqual's production Model Context Protocol server. It lets a signed-in customer search source-backed tender notices, review qualified matches, manage tender alerts, inspect evaluation usage, and retrieve available documents for tenders matched to their workspace.
 
 The plugin contains configuration and documentation only. It does not bundle Tenqual's application source code, execute local scripts, register lifecycle hooks, collect conversation history, or send telemetry. All product actions go directly to `https://api.tenqual.com/mcp` over HTTPS.
 
@@ -17,11 +17,14 @@ API keys, webhooks, and integration delivery requires an owner or administrator 
 
 When the directory listings are live, install **Tenqual Discovery** from the OpenAI Plugins
 Directory or Anthropic Plugin Directory and follow the OAuth prompt. Claude users can also add
-`https://api.tenqual.com/mcp` as a custom remote connector. During review or local package testing:
+`https://api.tenqual.com/mcp` as a custom remote connector. Cursor and VS Code can install this
+repository as an Agent Plugins 1.0 package; the portable entry points are `plugin.json` and
+`mcp.json` at the repository root. During review or local package testing:
 
 1. Validate this repository with the current Codex plugin validator and
    `claude plugin validate . --strict`.
-2. Configure the package or custom connector with the fixed MCP URL in `.mcp.json`.
+2. Configure the package or custom connector with the fixed MCP URL in `.mcp.json` or `mcp.json`,
+   depending on the client format.
 3. Sign in to Tenqual in the browser, select the intended workspace, and approve the displayed
    scopes.
 4. Start with `Check my Tenqual connection and show the permissions you have.`
