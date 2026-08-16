@@ -7,7 +7,6 @@ Tenqual connects Claude to source-backed public procurement and tender discovery
 - A hosted Tenqual MCP connector at `https://api.tenqual.com/mcp`
 - OAuth-based workspace connection through Tenqual
 - Skills that guide Claude through common procurement workflows
-- Slash commands for common tender workflows
 - Specialist agents for tender and compliance review
 - Read-only tender and document review by default
 - Explicit confirmation patterns for alert, delivery, webhook, and API-key changes
@@ -20,13 +19,6 @@ Tenqual connects Claude to source-backed public procurement and tender discovery
 - `tenqual-discovery:tender-review`
 - `tenqual-discovery:bid-no-bid`
 - `tenqual-discovery:compliance-matrix`
-
-## Included Commands
-
-- `/tenqual-discovery:find-tenders`
-- `/tenqual-discovery:review-tender`
-- `/tenqual-discovery:assess-bid`
-- `/tenqual-discovery:build-compliance-matrix`
 
 ## Included Agents
 

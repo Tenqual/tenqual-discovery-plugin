@@ -10,7 +10,7 @@ This repository is the public umbrella package for Tenqual AI client integration
 
 - `plugin.json`, `mcp.json`, and `.codex-plugin/plugin.json` keep the portable and Codex/OpenAI-facing package metadata.
 - `.claude-plugin/marketplace.json` exposes the Claude marketplace catalog.
-- `plugins/tenqual-discovery/` contains the dedicated Claude plugin package with its own `.claude-plugin/plugin.json`, MCP declaration, skills, commands, agents, and setup documentation.
+- `plugins/tenqual-discovery/` contains the dedicated Claude plugin package with its own `.claude-plugin/plugin.json`, MCP declaration, skills, agents, and setup documentation.
 
 Keeping the Claude package in a subdirectory lets Claude install a clean plugin while preserving the existing cross-client connector files at the repository root.
 
