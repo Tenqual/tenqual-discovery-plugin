@@ -25,6 +25,7 @@ jobs:
 
           root = Path(".")
           expected_files = {
+              ".claude-plugin/marketplace.json",
               ".claude-plugin/plugin.json",
               ".codex-plugin/plugin.json",
               ".github/workflows/validate.yml",
@@ -39,6 +40,21 @@ jobs:
               "review/openai-submission.md",
               "review/tool-annotations.md",
               "mcp.json",
+              "plugins/tenqual-discovery/.claude-plugin/plugin.json",
+              "plugins/tenqual-discovery/.mcp.json",
+              "plugins/tenqual-discovery/CHANGELOG.md",
+              "plugins/tenqual-discovery/README.md",
+              "plugins/tenqual-discovery/SETUP.md",
+              "plugins/tenqual-discovery/agents/compliance-reviewer.md",
+              "plugins/tenqual-discovery/agents/tender-analyst.md",
+              "plugins/tenqual-discovery/docs/local-verification.md",
+              "plugins/tenqual-discovery/docs/tool-surface.md",
+              "plugins/tenqual-discovery/skills/alert-management/SKILL.md",
+              "plugins/tenqual-discovery/skills/bid-no-bid/SKILL.md",
+              "plugins/tenqual-discovery/skills/compliance-matrix/SKILL.md",
+              "plugins/tenqual-discovery/skills/setup/SKILL.md",
+              "plugins/tenqual-discovery/skills/tender-review/SKILL.md",
+              "plugins/tenqual-discovery/skills/tender-search/SKILL.md",
               "plugin.json",
           }
           tracked = set(subprocess.check_output(["git", "ls-files"], text=True).splitlines())
@@ -54,11 +70,26 @@ jobs:
 
           codex = json.loads((root / ".codex-plugin/plugin.json").read_text())
           claude = json.loads((root / ".claude-plugin/plugin.json").read_text())
+          marketplace = json.loads((root / ".claude-plugin/marketplace.json").read_text())
           mcp = json.loads((root / ".mcp.json").read_text())
           portable = json.loads((root / "plugin.json").read_text())
           portable_mcp = json.loads((root / "mcp.json").read_text())
+          nested_plugin = json.loads(
+              (root / "plugins/tenqual-discovery/.claude-plugin/plugin.json").read_text()
+          )
+          nested_mcp = json.loads((root / "plugins/tenqual-discovery/.mcp.json").read_text())
           assert codex["name"] == claude["name"] == portable["name"] == "tenqual-discovery"
           assert codex["version"] == claude["version"] == portable["version"]
+          assert marketplace["name"] == "tenqual-plugins"
+          assert marketplace["plugins"][0]["name"] == "tenqual-discovery"
+          assert marketplace["plugins"][0]["source"] == "./plugins/tenqual-discovery"
+          assert nested_plugin["name"] == "tenqual-discovery"
+          assert nested_plugin["repository"] == "https://github.com/Tenqual/tenqual-discovery-plugin"
+          assert nested_mcp == {
+              "mcpServers": {
+                  "tenqual": {"type": "http", "url": "https://api.tenqual.com/mcp"}
+              }
+          }
           assert portable == {
               "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
               "name": "tenqual-discovery",
@@ -105,8 +136,11 @@ jobs:
           assert (root / "assets/icon.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
           assert (root / "assets/logo.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")
           PY
-      - name: Validate Anthropic plugin contract
-        run: npx --yes @anthropic-ai/claude-code@2.1.228 plugin validate . --strict
+      - name: Validate Anthropic marketplace and plugin contracts
+        run: |
+          npx --yes @anthropic-ai/claude-code@2.1.228 plugin validate . --strict
+          npx --yes @anthropic-ai/claude-code@2.1.228 plugin validate .claude-plugin/plugin.json --strict
+          npx --yes @anthropic-ai/claude-code@2.1.228 plugin validate plugins/tenqual-discovery --strict
       - name: Reject likely committed credentials
         shell: bash
         run: |

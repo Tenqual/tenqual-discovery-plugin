@@ -4,6 +4,16 @@ Tenqual Discovery connects Codex, ChatGPT, Claude, Cursor, and VS Code to Tenqua
 
 The plugin contains configuration and documentation only. It does not bundle Tenqual's application source code, execute local scripts, register lifecycle hooks, collect conversation history, or send telemetry. All product actions go directly to `https://api.tenqual.com/mcp` over HTTPS.
 
+## Repository layout
+
+This repository is the public umbrella package for Tenqual AI client integrations.
+
+- `plugin.json`, `mcp.json`, and `.codex-plugin/plugin.json` keep the portable and Codex/OpenAI-facing package metadata.
+- `.claude-plugin/marketplace.json` exposes the Claude marketplace catalog.
+- `plugins/tenqual-discovery/` contains the dedicated Claude plugin package with its own `.claude-plugin/plugin.json`, MCP declaration, skills, agents, and setup documentation.
+
+Keeping the Claude package in a subdirectory lets Claude install a clean plugin while preserving the existing cross-client connector files at the repository root.
+
 ## Requirements
 
 - A Tenqual account and workspace.
@@ -91,10 +101,11 @@ Security reports are handled according to [SECURITY.md](SECURITY.md).
 
 ## Development validation
 
-Validate the Codex package with OpenAI's plugin validator and the Claude package with:
+Validate the Codex package with OpenAI's plugin validator. Validate the Claude marketplace and nested Claude plugin package with:
 
 ```bash
 claude plugin validate . --strict
+claude plugin validate plugins/tenqual-discovery --strict
 ```
 
 The public package intentionally contains no hooks, executable code, package-install commands, or additional network destinations.
