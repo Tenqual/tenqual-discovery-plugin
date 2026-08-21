@@ -1,13 +1,13 @@
 # Tenqual Claude Plugin
 
-Tenqual connects Claude to source-backed public procurement and tender discovery workflows. It bundles the hosted Tenqual MCP connector with skills for tender search, opportunity review, bid/no-bid analysis, and compliance matrix preparation.
+Tenqual connects Claude to source-backed public procurement and tender discovery workflows. It bundles the hosted Tenqual MCP connector with skills for tender search, match review, alert management, and retrieval of available documents.
 
 ## What This Plugin Provides
 
 - A hosted Tenqual MCP connector at `https://api.tenqual.com/mcp`
 - OAuth-based workspace connection through Tenqual
-- Skills that guide Claude through common procurement workflows
-- Specialist agents for tender and compliance review
+- Skills that guide Claude through tender discovery workflows
+- A specialist agent for source-backed tender review
 - Read-only tender and document review by default
 - Explicit confirmation patterns for alert, delivery, webhook, and API-key changes
 
@@ -17,13 +17,10 @@ Tenqual connects Claude to source-backed public procurement and tender discovery
 - `tenqual-discovery:alert-management`
 - `tenqual-discovery:tender-search`
 - `tenqual-discovery:tender-review`
-- `tenqual-discovery:bid-no-bid`
-- `tenqual-discovery:compliance-matrix`
 
 ## Included Agents
 
 - `tenqual-discovery:tender-analyst`
-- `tenqual-discovery:compliance-reviewer`
 
 ## Documentation
 

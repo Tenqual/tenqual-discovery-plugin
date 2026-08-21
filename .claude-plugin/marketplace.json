@@ -10,7 +10,7 @@
     {
       "name": "tenqual-discovery",
       "source": "./plugins/tenqual-discovery",
-      "description": "Search source-backed tender notices, review workspace matches and documents, draft tender alerts, and prepare bid/no-bid or compliance reviews with Tenqual.",
+      "description": "Search source-backed tender notices, review workspace matches and available documents, and manage tender alerts with Tenqual.",
       "author": {
         "name": "Tenqual Software AS"
       },
