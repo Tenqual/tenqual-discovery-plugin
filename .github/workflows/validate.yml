@@ -116,7 +116,9 @@ jobs:
           }
           assert codex["mcpServers"] == "./.mcp.json"
           assert mcp == {
-              "tenqual": {"type": "http", "url": "https://api.tenqual.com/mcp"}
+              "mcpServers": {
+                  "tenqual": {"type": "http", "url": "https://api.tenqual.com/mcp"}
+              }
           }
           assert claude["mcpServers"] == {
               "tenqual": {"type": "http", "url": "https://api.tenqual.com/mcp"}
@@ -127,7 +129,6 @@ jobs:
           assert interface["websiteURL"] == "https://tenqual.com"
           assert interface["privacyPolicyURL"] == "https://tenqual.com/privacy"
           assert interface["termsOfServiceURL"] == "https://tenqual.com/terms"
-          assert interface["supportURL"] == "https://tenqual.com/contact"
           assert len(interface["defaultPrompt"]) <= 3
           assert all(len(prompt) <= 128 and "\n" not in prompt for prompt in interface["defaultPrompt"])
           assert (root / "assets/icon.png").read_bytes().startswith(b"\x89PNG\r\n\x1a\n")

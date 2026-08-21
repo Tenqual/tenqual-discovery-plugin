@@ -1,6 +1,8 @@
 {
-  "tenqual": {
-    "type": "http",
-    "url": "https://api.tenqual.com/mcp"
+  "mcpServers": {
+    "tenqual": {
+      "type": "http",
+      "url": "https://api.tenqual.com/mcp"
+    }
   }
 }
